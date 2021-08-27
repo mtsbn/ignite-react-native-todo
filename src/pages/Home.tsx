@@ -9,6 +9,11 @@ export function Home() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
   function handleAddTask(newTaskTitle: string) {
+    if (tasks.some((task) => task.title === newTaskTitle))
+      return Alert.alert(
+        'Task já cadastrada', 
+        'Você não pode cadastrar uma task com o mesmo nome');
+
     const newTask: Task = {
       id: new Date().getTime(),
       title: newTaskTitle,
@@ -18,7 +23,7 @@ export function Home() {
     setTasks([...tasks, newTask]);
   }
 
-  function handleToggleTaskDone(id: number) {    
+  function handleToggleTaskDone(id: number) {
     setTasks(tasks.map(task => {
       if (task.id === id) {
         task.done = !task.done;
@@ -27,7 +32,7 @@ export function Home() {
     }))
   }
 
-  function handleRemoveTask(id: number) { 
+  function handleRemoveTask(id: number) {
     Alert.alert(
       'Remover item',
       'Tem certeza que você deseja remover esse item?',
@@ -43,7 +48,7 @@ export function Home() {
           }
         }
       ]
-    )    
+    )
   }
 
   return (
