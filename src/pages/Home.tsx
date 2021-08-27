@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Alert } from 'react-native';
 
 import { Header } from '../components/Header';
 import { Task, TasksList } from '../components/TasksList';
@@ -27,8 +27,23 @@ export function Home() {
     }))
   }
 
-  function handleRemoveTask(id: number) {    
-    setTasks(tasks.filter(task => task.id !== id));
+  function handleRemoveTask(id: number) { 
+    Alert.alert(
+      'Remover item',
+      'Tem certeza que você deseja remover esse item?',
+      [
+        {
+          text: 'NÃO',
+          style: 'cancel'
+        },
+        {
+          text: 'SIM',
+          onPress: () => {
+            setTasks(tasks.filter(task => task.id !== id));
+          }
+        }
+      ]
+    )    
   }
 
   return (
